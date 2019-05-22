@@ -1,5 +1,6 @@
 # coding: utf-8
 import shelve
+from datetime import datetime
 
 from flask import Flask, request, render_template, redirect, escape, Markup
 
@@ -12,7 +13,7 @@ def save_data(name, comment, create_at):
     """
     # 通過shelve 模塊打開數據庫文件
     database = shelve.open(DATA_FILE)
-    # 如果數據庫中沒有greeting_list，就新建一個表
+    # 如果數據庫中沒有greeting_list,就新建一個表
     if 'greeting_list' not in database:
         greeting_list = []
     else:
@@ -23,44 +24,43 @@ def save_data(name, comment, create_at):
         'name': name,
         'comment': comment,
         'create_at': create_at,
-    })
+        })
     # 更新數據庫
     database['greeting_list'] = greeting_list
     # 關閉數據庫文件
     database.close()
 
 def load_data():
-    """ 返回已提交的數據
+    """返回已提交的數據
     """
-    # 通過shelve 模塊打開數據庫文件
+    # 通過shelve模塊打開數據庫文件
     database = shelve.open(DATA_FILE)
-    # 返回greeting_list 如果沒有數據則返回空表
+    # 返回greeting_list。如果沒有數據則返回空表
     greeting_list = database.get('greeting_list', [])
     database.close()
     return greeting_list
 
 @application.route('/')
 def index():
-    """ 首頁
+    """首頁
     使用模板顯示頁面
     """
     # 讀取已提交的數據
     greeting_list = load_data()
-    return render_template('index.html', greeting_list = greeting_list)
+    return render_template('index.html', greeting_list=greeting_list)
 
 @application.route('/post', methods=['POST'])
 def post():
-    """ 用於提交評論的URL
+    """用於提交評論的URL
     """
     # 獲取已提交的數據
     name = request.form.get('name') # 名字
     comment = request.form.get('comment')   # 留言
     create_at = datetime.now()  # 投稿時間(當前時間)
     # 保存數據
-    save_data(name, comment, create_at)
+    save_date(name, comment, create_at)
     # 保存後重定向到首頁
     return redirect('/')
-
 if __name__ == '__main__':
-    # 在IP 地址127.0.0.1的8000 端口運行應用程序
-    application.run('127.0.0.1', 8000, debug = True)
+    # 在Ip地址127.0.0.1 的8000端口運行應用程序
+    application.run('127.0.0.1', 8000, debug=True)

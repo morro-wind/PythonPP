@@ -13,6 +13,20 @@ p7
 cdatetime
 datetime
 p8
-(S'\x07\xe3\x03\x07\x10\x00\x00\x00\x00\x00'
+(S'\x07\xde\n\x1f\n\x00\x00\x00\x00\x00'
 tRp9
+sa(dp10
+S'comment'
+p11
+S'test comment'
+p12
+sS'name'
+p13
+S'test'
+p14
+sS'create_at'
+p15
+g8
+(S'\x07\xe3\x03\x07\x10\x00\x00\x00\x00\x00'
+tRp16
 sa.
