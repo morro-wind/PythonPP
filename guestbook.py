@@ -58,9 +58,21 @@ def post():
     comment = request.form.get('comment')   # 留言
     create_at = datetime.now()  # 投稿時間(當前時間)
     # 保存數據
-    save_date(name, comment, create_at)
+    save_data(name, comment, create_at)
     # 保存後重定向到首頁
     return redirect('/')
+
+@application.template_filter('nl2br')
+def nl2br_filter(s):
+    """將換行符置換爲br標籤的模板過濾器
+    """
+    return escape(s).replace('\n', Markup('<br>'))
+
+@application.template_filter('datetime_fmt')
+def datetime_fmt_filter(dt):
+    """使datetime 對象更容易分辨的模板過濾器
+    """
+    return dt.strftime('%Y/%m/%d %H:%M:%S')
 if __name__ == '__main__':
     # 在Ip地址127.0.0.1 的8000端口運行應用程序
     application.run('127.0.0.1', 8000, debug=True)
