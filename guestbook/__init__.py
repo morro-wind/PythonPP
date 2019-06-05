@@ -73,6 +73,11 @@ def datetime_fmt_filter(dt):
     """使datetime 對象更容易分辨的模板過濾器
     """
     return dt.strftime('%Y/%m/%d %H:%M:%S')
+
+def main():
+    application.run('127.0.0.1', 8000)
+
 if __name__ == '__main__':
     # 在Ip地址127.0.0.1 的8000端口運行應用程序
     application.run('127.0.0.1', 8000, debug=True)
+
