@@ -35,3 +35,15 @@ $ source .venv/bin/activate
 1. 檢測
 2. 按以下流程安裝
 (.venv)$ pip install -e
+
+變更依賴庫時
+------------------
+
+1. 更新``setup.py``的``install_requires``
+2. 按以下流程更新環境::
+
+    (.venv)$ virtualenv --clear .venv
+    (.venv)$ pip install -e ./guestbook
+    (.venv)$ pip freeze > requirements.txt
+
+3. 將setup.py 和requirements.txt 提交到版本庫
